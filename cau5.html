@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <label for="">Tên khách hàng</label>
+    <select name="MAKH" id="MAKH"></select><br>
+    <label for="">Mã hóa đơn</label>
+    <select name="MAHD" id="MAHD"></select>
+    <h2>Danh sách phòng trong hóa đơn</h2>
+    <div id="kq"></div>
+    <a href="trangchu.html">về trang chủ</a>
+    <script>
+        $(document).ready(function(){
+            loadkh();
+
+            $('#MAKH').on('change',function(){
+                var MAKH = $('#MAKH').val();
+                loadhd(MAKH);
+            })
+
+            $('#MAHD').on('change',function(){
+                var MAHD = $('#MAHD').val();
+                console.log("Selected MAHD: ", MAHD);
+                loadphong(MAHD);
+            })
+        })
+        function loadkh(){
+            $.ajax({
+                type: 'get',
+                url: 'loadkh.php',
+                success: function(data){
+                    $('#MAKH').html(data);
+                }
+            })
+        }
+        function loadhd(MAKH){
+            $.ajax({
+                    type: 'post',
+                    url: 'hoadon.php',
+                    data: {
+                        MAKH: MAKH
+                    },
+                    success: function (data) {
+                        $('#MAHD').html(data);
+                    }
+                });
+        }
+        function loadphong(MAHD){
+            $.ajax({
+                type: 'post',
+                url: 'phong.php',
+                data: {MAHD: MAHD},
+                success: function(data) {
+                    $('#kq').html(data);
+                }
+            })
+        }
+    </script>
+</body>
+</html>

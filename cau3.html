@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <label for="">Mã hóa đơn</label>
+    <select name="MAHD" id="MAHD"></select>
+    <div>
+        <h2>Danh sách các phòng còn trống</h2>
+        <div>
+            <table border="1">
+                <tr>
+                    <th>STT</th>
+                    <th>Mã phòng</th>
+                    <th>Tên phòng</th>
+                    <th>Chức năng</th>
+                </tr>
+                <tbody id="dsempty">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div>
+        <h2>Danh sách phòng đã thêm</h2>
+        <div>
+            <table border="1">
+                <tr>
+                    <th>STT</th>
+                    <th>Mã phòng</th>
+                    <th>Tên phòng</th>
+                    <th>Chức năng</th>
+                </tr>
+                <tbody id="dsadd">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <a href="trangchu.html">về trang chủ</a>
+    <script>
+        $(document).ready(function(){
+            loadhd();
+            loadphongtrong();
+        })
+        $(document).on('click','.add',function(){
+            var MAPHONG = $(this).data('maphong');
+            var MAHD = $('#MAHD').val();
+            add(MAHD,MAPHONG);
+            $('#row_'+MAPHONG).remove();
+        })
+        $(document).on('click','.del',function(){
+            var MAPHONG = $(this).data('maphong');
+            var MAHD = $('#MAHD').val();
+            del(MAHD,MAPHONG);
+            $('#row1_'+MAPHONG).remove();
+        })
+        // load mã hóa đơn
+        function loadhd(){
+            $.ajax({
+                type: 'GET',
+                url: 'loadmahd.php',
+                success: function(data){
+                    $('#MAHD').html(data);
+                }
+            })
+        }
+        // load thông tin phòng
+        function loadphongtrong(){
+                $.ajax({
+                type: 'GET',
+                url: 'dsphongtrong.php',
+                success: function(data){
+                    $('#dsempty').html(data);
+                }
+            })
+        } 
+        // thêm phòng 
+        function add(MAHD,MAPHONG){
+            $.ajax({
+                type: 'post',
+                url: 'chonphong.php',
+                data:{
+                    MAHD:MAHD,
+                    MAPHONG:MAPHONG
+                },
+                success: function(data){
+                    $('#dsadd').append(data);
+                    updateSTT()
+                }
+            })
+        }
+        //xóa phòng khỏi danh sách
+        function del(MAHD,MAPHONG){
+            $.ajax({
+                type:'post',
+                url:'xoaphong.php',
+                data:{
+                    MAHD:MAHD,
+                    MAPHONG:MAPHONG
+                },
+                success:function(data){
+                    $('#dsempty').append(data);
+                    updateSTT1()
+                }
+            })
+        }
+        
+        function updateSTT() {
+            $('#dsadd tr').each(function (index) {
+                $(this).find('td:first').text(index + 1);
+            });
+        }
+        function updateSTT1() {
+            $('#dsempty tr').each(function (index) {
+                $(this).find('td:first').text(index + 1);
+            });
+        }
+    </script>
+</body>
+</html>
