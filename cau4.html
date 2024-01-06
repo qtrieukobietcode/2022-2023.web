@@ -12,18 +12,20 @@
 <div id="kq"></div>
 <script>
     $(document).ready(function(){
-        $('#n').on('keyup',function(){
-            var n =$('#n').val();
-            $.ajax({
-                type: 'post',
-                url: 'topnguoimua.php',
-                data:{
-                    n:n
-                },
-                success: function(data){
-                    $('#kq').html(data);
-                }
-            })
+        $('#n').on('keydown',function(e){
+            if(e.keyCode === 13){
+                var n =$('#n').val();
+                $.ajax({
+                    type: 'post',
+                    url: 'topnguoimua.php',
+                    data:{
+                        n:n
+                    },
+                    success: function(data){
+                        $('#kq').html(data);
+                    }
+                })
+            }
         })
     })
 </script>
