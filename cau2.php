@@ -21,7 +21,6 @@
     <input type="text" name='TONGTIEN' placeholder="Tổng tiền"><br>
     <input type='submit'name='submit' value='Thêm'>
     </form>
-    <a href="trangchu.html">về trang chủ</a>
     <?php
         include('connect.php');
         if(isset($_GET['submit']) && $_GET['submit']=='Thêm'){
