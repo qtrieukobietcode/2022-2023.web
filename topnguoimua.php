@@ -10,21 +10,21 @@ LIMIT $n";
 $i=1;
 $result= $con->query($sql);
 if($result){
-    echo $n." khách hàng có số lượng tiền thuê nhiều nhất";
-    echo "<table border='1'>";
-    echo "<tr>";
-    echo "<th>STT</th>";
-    echo "<th>Mã khách hàng</th>";
-    echo "<th>Tên khách hàng</th>";
-    echo "<th>Tổng tiền thuê</th>";
-    echo "</tr>";
+    echo $n." khách hàng có số lượng tiền thuê nhiều nhất
+        <table border='1'>
+        <tr>
+        <th>STT</th>
+        <th>Mã khách hàng</th>
+        <th>Tên khách hàng</th>
+        <th>Tổng tiền thuê</th>
+        </tr>";
     while($row=$result->fetch_assoc()){
-        echo "<tr>";
-        echo "<td>".$i++."</td>";
-        echo "<td>".$row['MAKH']."</td>";
-        echo "<td>".$row['TENKH']."</td>";
-        echo "<td>".$row['TongTienMua']."</td>";
-        echo "</tr>";
+        echo "<tr>
+            <td>".$i++."</td>
+            <td>".$row['MAKH']."</td>
+            <td>".$row['TENKH']."</td>
+            <td>".$row['TongTienMua']."</td>
+            </tr>";
     }
     echo "</table>";
 }

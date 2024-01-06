@@ -9,7 +9,6 @@
             print_r($row['MAHD']);
         }
     }
-    // else{echo "chưa nhận data";}
 ?>
 <script>
 

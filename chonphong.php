@@ -10,14 +10,14 @@
         $result=$con->query($sql);
         if($result){
         while($row=$result->fetch_assoc()){
-            echo "<tr id='row1_".$row['MAPHONG']."'>";
-            echo "<td>".$i++."</td>";
-            echo "<td>".$row['MAPHONG']."</td>";
-            echo "<td>".$row['TENPHONG']."</td>";
-            echo "<td>
+            echo "<tr id='row1_".$row['MAPHONG']."'>
+                <td>".$i++."</td>
+                <td>".$row['MAPHONG']."</td>
+                <td>".$row['TENPHONG']."</td>
+                <td>
                     <button class='del' data-maphong='".$row['MAPHONG']."'>Xóa</button>
-                  </td>";
-            echo "</tr>";
+                  </td>
+                </tr>";
         }
     }
 }
